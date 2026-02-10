@@ -1,0 +1,34 @@
+name: file_format_converter
+description: A cross-platform file format converter app with extensible architecture
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # FFmpeg for video conversion
+  ffmpeg_kit_flutter: ^6.0.3
+  
+  # File picker for selecting files
+  file_picker: ^8.0.0
+  
+  # Path provider for file system access
+  path_provider: ^2.1.1
+  
+  # Permission handler for storage access
+  permission_handler: ^11.0.1
+  
+  # Provider for state management
+  provider: ^6.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
