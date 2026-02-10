@@ -67,8 +67,8 @@ class VideoConverter extends FileConverter {
       );
       controller.add(updatedTask);
 
-      // Build FFmpeg command
-      final command = '-i "${task.inputPath}" -c:v libx264 -c:a aac "${task.outputPath}"';
+      // Build FFmpeg command with format-specific codecs
+      final command = _buildFFmpegCommand(task.inputPath, task.outputPath, task.outputFormat);
 
       // Get video duration first for accurate progress tracking
       int? duration;
@@ -133,6 +133,40 @@ class VideoConverter extends FileConverter {
       _activeConversions.remove(task.id);
       await controller.close();
     }
+  }
+
+  /// Build FFmpeg command with format-specific codecs for optimal quality
+  String _buildFFmpegCommand(String inputPath, String outputPath, String outputFormat) {
+    // Base command
+    String command = '-i "$inputPath"';
+    
+    // Format-specific codec settings
+    switch (outputFormat.toLowerCase()) {
+      case 'mp4':
+        command += ' -c:v libx264 -c:a aac -strict experimental';
+        break;
+      case 'webm':
+        command += ' -c:v libvpx-vp9 -c:a libopus';
+        break;
+      case 'mkv':
+        command += ' -c:v libx264 -c:a aac';
+        break;
+      case 'avi':
+        command += ' -c:v mpeg4 -c:a libmp3lame';
+        break;
+      case 'mov':
+        command += ' -c:v libx264 -c:a aac';
+        break;
+      case 'flv':
+        command += ' -c:v libx264 -c:a aac';
+        break;
+      default:
+        // Default codecs
+        command += ' -c:v libx264 -c:a aac';
+    }
+    
+    command += ' "$outputPath"';
+    return command;
   }
 
   @override

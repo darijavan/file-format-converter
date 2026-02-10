@@ -92,7 +92,7 @@ class ConversionProvider extends ChangeNotifier {
 
   Future<Directory> _getOutputDirectory() async {
     final appDir = await getApplicationDocumentsDirectory();
-    final outputDir = Directory('${appDir.path}/converted_videos');
+    final outputDir = Directory('${appDir.path}/converted_files');
     if (!await outputDir.exists()) {
       await outputDir.create(recursive: true);
     }

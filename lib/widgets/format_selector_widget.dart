@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../services/conversion_provider.dart';
 
 class FormatSelectorWidget extends StatelessWidget {
   final String inputFormat;
@@ -14,8 +16,9 @@ class FormatSelectorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Available output formats for video conversion
-    final outputFormats = ['mp4', 'avi', 'mov', 'mkv', 'webm', 'flv'];
+    // Get available output formats from the converter service
+    final provider = context.watch<ConversionProvider>();
+    final outputFormats = provider.converterService.getAllSupportedOutputFormats();
 
     return Card(
       child: Padding(

@@ -33,9 +33,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _pickFile() async {
     try {
+      // Get supported formats from the converter service
+      final provider = context.read<ConversionProvider>();
+      final supportedFormats = provider.converterService.getAllSupportedInputFormats();
+      
       final result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
-        allowedExtensions: ['mp4', 'avi', 'mov', 'mkv', 'flv', 'wmv', 'webm', 'm4v', 'mpeg', 'mpg'],
+        allowedExtensions: supportedFormats,
       );
 
       if (result != null && result.files.single.path != null) {
