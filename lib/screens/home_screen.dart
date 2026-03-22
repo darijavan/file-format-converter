@@ -4,7 +4,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../services/conversion_provider.dart';
-import '../models/conversion_task.dart';
 import '../widgets/conversion_progress_widget.dart';
 import '../widgets/format_selector_widget.dart';
 

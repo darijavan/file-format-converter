@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter/return_code.dart';
-import 'package:ffmpeg_kit_flutter/statistics.dart';
 
 import '../models/conversion_task.dart';
 import 'file_converter.dart';
@@ -114,9 +112,9 @@ class VideoConverter extends FileConverter {
         null, // log callback
         (statistics) {
           // Update progress based on time processed
-          if (duration != null && duration > 0) {
+          if (duration != null && duration! > 0) {
             final time = statistics.getTime();
-            final progress = (time / 1000) / duration;
+            final progress = (time / 1000) / duration!;
             updatedTask = updatedTask.copyWith(
               progress: progress.clamp(0.0, 0.99),
             );
